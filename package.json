@@ -1,0 +1,28 @@
+{
+  "name": "devsweep",
+  "version": "0.1.0",
+  "private": true,
+  "description": "find and clear the junk coding agents leave behind",
+  "type": "module",
+  "bin": {
+    "devsweep": "src/cli.ts"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/cli.ts",
+    "typecheck": "tsc",
+    "test": "node --test test/*.test.ts",
+    "check": "npm run typecheck && npm test",
+    "demo": "node scripts/record-demo.ts"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "asciinema-player": "^3.18.1",
+    "typescript": "^7.0.2"
+  }
+}
