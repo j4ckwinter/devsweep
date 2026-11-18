@@ -10,11 +10,13 @@ point devsweep at the folder that holds your projects. it lists every leftover w
 
 ## run it
 
-you need Node 24 or newer and git. run it on the folder that holds your projects:
+you need Node 24 or newer and git. give it the folder your projects live in. `~/code` is just an example, so swap in your own:
 
 ```sh
 npx --allow-git=root github:j4ckwinter/devsweep ~/code
 ```
+
+leave the folder off and it scans the one you're in. if the path doesn't exist, it says so and stops.
 
 npm 12 won't install from GitHub without `--allow-git=root`. older npm ignores it.
 
