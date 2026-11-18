@@ -9,10 +9,10 @@ Run commands from the repository root. Node 24 or newer runs the TypeScript sour
 ```sh
 npm run check   # tsc, then node --test
 npm start -- <folder>
-npm run demo    # re-record docs/demo.cast and docs/demo.html (macOS only)
+npm run demo    # re-record docs/demo.cast, docs/demo.html and docs/demo.gif (macOS only)
 ```
 
-Re-record the demo after a change to what the interactive screens show, and look at the result.
+Re-record the demo after a change to what the interactive screens show, and look at the result. The GIF at the top of the README is what people see first on GitHub.
 
 ## Where things live
 
@@ -30,6 +30,7 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | How sizes, ages, paths and summaries read | `src/format.ts` |
 | Arguments, prompts and the order of the interactive flow | `src/cli.ts` |
 | The demo scene and recording | `scripts/record-demo.ts` |
+| Turning the recording into the README's GIF | `scripts/render-demo-gif.ts` |
 
 ## Rules that matter here
 

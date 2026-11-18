@@ -15,14 +15,18 @@
     "typecheck": "tsc",
     "test": "node --test test/*.test.ts",
     "check": "npm run typecheck && npm test",
-    "demo": "node scripts/record-demo.ts"
+    "demo": "node scripts/record-demo.ts && node scripts/render-demo-gif.ts"
   },
   "dependencies": {
     "@clack/prompts": "^1.9.0"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
+    "@types/pngjs": "6.0.5",
     "asciinema-player": "^3.18.1",
+    "gifenc": "1.0.3",
+    "playwright-core": "1.65.0",
+    "pngjs": "7.0.0",
     "typescript": "^7.0.2"
   }
 }

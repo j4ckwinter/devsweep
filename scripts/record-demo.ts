@@ -119,7 +119,7 @@ body { margin: 0; min-height: 100vh; display: grid; place-items: center; backgro
 <body>
 <div id="player"></div>
 <script>${script.replaceAll("</script", "<\\/script")}</script>
-<script>AsciinemaPlayer.create(${JSON.stringify(castUrl)}, document.getElementById("player"), { autoPlay: true, loop: false, fit: "width", idleTimeLimit: 2 });</script>
+<script>window.demoPlayer = AsciinemaPlayer.create(${JSON.stringify(castUrl)}, document.getElementById("player"), { autoPlay: true, loop: false, fit: "width", idleTimeLimit: 2 });</script>
 </body>
 </html>
 `;

@@ -4,7 +4,9 @@ coding agents are messy guests. every session leaves something behind: a fresh `
 
 devsweep finds that junk under a folder, shows how big and how old each piece is, and clears only what you tick.
 
-[watch the demo](docs/demo.html): open it in a browser. it runs for about 15 seconds.
+![devsweep scanning a folder, ticking two old node_modules folders, two worktrees and some playwright traces, then reclaiming 372 MB](docs/demo.gif)
+
+the same demo plays sharper in [docs/demo.html](docs/demo.html), once it's downloaded and opened in a browser.
 
 ## what it looks for
 
@@ -56,9 +58,9 @@ devsweep finds worktrees through the repos under the folder you scan. a worktree
 
 ```sh
 npm run check   # typecheck and tests
-npm run demo    # re-record docs/demo.cast and docs/demo.html
+npm run demo    # re-record docs/demo.cast, docs/demo.html and docs/demo.gif
 ```
 
 the tests build a throwaway tree with real git repos and worktrees, then scan and sweep it.
 
-the demo is recorded through macOS's `script` command, so `npm run demo` is mac only.
+the demo is recorded through macOS's `script` command, so `npm run demo` is mac only. the gif is drawn by playing that recording in Playwright's headless Chromium, so it needs `npx playwright-core install chromium-headless-shell` once if that isn't on the machine yet.
