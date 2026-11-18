@@ -61,12 +61,9 @@ devsweep finds worktrees through the repos under the folder you scan. a worktree
 npm ci
 npm start -- ~/code   # run it from the source
 npm run check         # typecheck and tests
-npm run demo          # re-record docs/demo.cast and redraw docs/demo.gif
 ```
 
 the tests build a throwaway tree with real git repos and worktrees, then scan and sweep it.
-
-the demo is recorded through macOS's `script` command, so `npm run demo` is mac only. the gif is drawn by playing that recording in Playwright's headless Chromium, so it needs `npx playwright-core install chromium-headless-shell` once if that isn't on the machine yet.
 
 ## licence
 

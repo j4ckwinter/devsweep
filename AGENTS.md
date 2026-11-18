@@ -10,12 +10,11 @@ Run commands from the repository root. Node 24 or newer runs the TypeScript sour
 npm run check   # tsc, then node --test
 npm start -- <folder>
 npm run build   # src to dist, which the published bin runs
-npm run demo    # re-record docs/demo.cast and redraw docs/demo.gif (macOS only)
 ```
 
 After a change to packaging, check the installed path: `npm pack`, then run the tarball with `npx --package=<tarball> devsweep <folder>`.
 
-Re-record the demo after a change to what the interactive screens show, and look at the result. The GIF at the top of the README is what people see first on GitHub.
+`docs/demo.gif` is a plain image at the top of the README, and it is what people see first on GitHub. After a change to what the interactive screens show, say whether it is out of date. Redo it only when Jack asks.
 
 ## Where things live
 
@@ -32,8 +31,6 @@ Each decision has one owner. Put new code with the owner of the decision it make
 | Carrying out removals | `src/sweep.ts` |
 | How sizes, ages, paths and summaries read | `src/format.ts` |
 | Arguments, prompts and the order of the interactive flow | `src/cli.ts` |
-| The demo scene and recording | `scripts/record-demo.ts` |
-| Turning the recording into the README's GIF | `scripts/render-demo-gif.ts` |
 
 ## Rules that matter here
 
