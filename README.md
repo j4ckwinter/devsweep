@@ -13,12 +13,10 @@ point dustpan at the folder that holds your projects. it lists every leftover wi
 you need Node 24 or newer and git. give it the folder your projects live in. `~/code` is just an example, so swap in your own:
 
 ```sh
-npx --allow-git=root github:j4ckwinter/dustpan ~/code
+npx dustpan ~/code
 ```
 
 leave the folder off and it scans the one you're in. if the path doesn't exist, it says so and stops.
-
-npm 12 won't install from GitHub without `--allow-git=root`. older npm ignores it.
 
 it scans, shows totals by kind, then gives you a checklist sorted by size. tick things with space, press enter, then press y. nothing is ticked to start with, and the "are you sure" defaults to no.
 
