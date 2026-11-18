@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { cancel, confirm, intro, isCancel, log, multiselect, note, outro, spinner } from "@clack/prompts";
+import { stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { parseArgs } from "node:util";
 import type { Candidate } from "./candidate.ts";
@@ -42,6 +43,11 @@ async function pick(candidates: readonly Candidate[], root: string, now: number)
   return isCancel(picked) ? undefined : picked;
 }
 
+async function isFolder(path: string): Promise<boolean> {
+  const stats = await stat(path).catch(() => undefined);
+  return stats?.isDirectory() ?? false;
+}
+
 async function main(): Promise<void> {
   const { values, positionals } = parseArgs({
     allowPositionals: true,
@@ -52,6 +58,11 @@ async function main(): Promise<void> {
     return;
   }
   const root = resolve(positionals[0] ?? ".");
+  if (!(await isFolder(root))) {
+    console.error(`devsweep: no folder at ${root}`);
+    process.exitCode = 1;
+    return;
+  }
   const now = Date.now();
   const interactive = process.stdin.isTTY && process.stdout.isTTY;
 

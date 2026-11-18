@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { after, before, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -26,5 +26,21 @@ describe("devsweep without a terminal", () => {
     assert.match(output, /nothing deleted/);
     assert.equal(existsSync(fixture.path("shop", "node_modules")), true);
     assert.equal(existsSync(fixture.path("wt-clean")), true);
+  });
+});
+
+describe("devsweep given a folder that isn't there", () => {
+  it("says so in one line and exits with an error", () => {
+    const missing = "/nonexistent/devsweep-check";
+    const result = spawnSync(process.execPath, [CLI, missing], { encoding: "utf8" });
+    assert.equal(result.status, 1);
+    assert.equal(result.stderr.trim(), `devsweep: no folder at ${missing}`);
+    assert.equal(result.stdout, "");
+  });
+
+  it("says so for a file too", () => {
+    const result = spawnSync(process.execPath, [CLI, CLI], { encoding: "utf8" });
+    assert.equal(result.status, 1);
+    assert.equal(result.stderr.trim(), `devsweep: no folder at ${CLI}`);
   });
 });
