@@ -4,7 +4,7 @@ devsweep is a terminal tool that finds and clears what coding agents leave behin
 
 ## Build and check
 
-Run commands from the repository root. Node 24 or newer runs the TypeScript sources directly. `npm run build` compiles `src` to `dist` for installs, because Node will not run TypeScript from inside `node_modules`; `prepare` runs it, so `npx github:j4ckwinter/devsweep` and `npm pack` build first.
+Run commands from the repository root. Node 24 or newer runs the TypeScript sources directly. `npm run build` compiles `src` to `dist` for installs, because Node will not run TypeScript from inside `node_modules`; `prepare` runs it, so `npx --allow-git=root github:j4ckwinter/devsweep` and `npm pack` build first. npm 12 refuses git installs without that flag.
 
 ```sh
 npm run check   # tsc, then node --test

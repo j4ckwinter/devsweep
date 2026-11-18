@@ -22,8 +22,10 @@ test and build output only count beside a `package.json`, so a `dist` folder in 
 you need Node 24 or newer and git. then point it at the folder that holds your projects:
 
 ```sh
-npx github:j4ckwinter/devsweep ~/code
+npx --allow-git=root github:j4ckwinter/devsweep ~/code
 ```
+
+npm 12 won't install from GitHub without `--allow-git=root`. older npm ignores it.
 
 it scans, shows totals by kind, then gives you a checklist sorted by size. tick things with space, press enter, and say yes. nothing is ticked to start with, and the "are you sure" defaults to no.
 
