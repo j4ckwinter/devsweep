@@ -1,7 +1,6 @@
 {
   "name": "devsweep",
   "version": "0.1.0",
-  "private": true,
   "description": "find and clear the junk coding agents leave behind",
   "type": "module",
   "bin": {
@@ -16,7 +15,8 @@
     "check": "npm run typecheck && npm test",
     "build": "tsc -p tsconfig.build.json",
     "prepare": "npm run build",
-    "start": "node src/cli.ts"
+    "start": "node src/cli.ts",
+    "prepublishOnly": "npm run check"
   },
   "dependencies": {
     "@clack/prompts": "^1.9.0"
@@ -28,5 +28,23 @@
   "files": [
     "dist"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j4ckwinter/devsweep.git"
+  },
+  "homepage": "https://github.com/j4ckwinter/devsweep#readme",
+  "bugs": {
+    "url": "https://github.com/j4ckwinter/devsweep/issues"
+  },
+  "author": "Jack Winter",
+  "keywords": [
+    "cli",
+    "cleanup",
+    "disk-space",
+    "node_modules",
+    "git-worktree",
+    "playwright",
+    "coding-agents"
+  ]
 }
