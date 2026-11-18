@@ -5,17 +5,19 @@
   "description": "find and clear the junk coding agents leave behind",
   "type": "module",
   "bin": {
-    "devsweep": "src/cli.ts"
+    "devsweep": "dist/cli.js"
   },
   "engines": {
     "node": ">=24"
   },
   "scripts": {
-    "start": "node src/cli.ts",
     "typecheck": "tsc",
     "test": "node --test test/*.test.ts",
     "check": "npm run typecheck && npm test",
-    "demo": "node scripts/record-demo.ts && node scripts/render-demo-gif.ts"
+    "demo": "node scripts/record-demo.ts && node scripts/render-demo-gif.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "start": "node src/cli.ts"
   },
   "dependencies": {
     "@clack/prompts": "^1.9.0"
@@ -28,5 +30,9 @@
     "playwright-core": "1.65.0",
     "pngjs": "7.0.0",
     "typescript": "^7.0.2"
-  }
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "MIT"
 }
