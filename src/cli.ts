@@ -9,7 +9,7 @@ import { planRemoval, totalBytes } from "./plan.ts";
 import { scan } from "./scan.ts";
 import { sweep } from "./sweep.ts";
 
-const USAGE = `usage: devsweep [folder] [--yes]
+const USAGE = `usage: dustpan [folder] [--yes]
 
 finds node_modules, git worktrees, test output and build output under a folder
 (default: the current one), then lets you pick what to clear.
@@ -26,7 +26,7 @@ function listOnly(candidates: readonly Candidate[], root: string, now: number): 
     const { label, hint } = describe(candidate, root, now);
     console.log(`${label}  (${hint})`);
   }
-  console.log(`\n${formatBytes(totalBytes(candidates))} found. nothing deleted: run devsweep in a terminal to pick what to clear.`);
+  console.log(`\n${formatBytes(totalBytes(candidates))} found. nothing deleted: run dustpan in a terminal to pick what to clear.`);
 }
 
 async function pick(candidates: readonly Candidate[], root: string, now: number): Promise<Candidate[] | undefined> {
@@ -59,7 +59,7 @@ async function main(): Promise<void> {
   }
   const root = resolve(positionals[0] ?? ".");
   if (!(await isFolder(root))) {
-    console.error(`devsweep: no folder at ${root}`);
+    console.error(`dustpan: no folder at ${root}`);
     process.exitCode = 1;
     return;
   }
@@ -73,7 +73,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  intro("devsweep");
+  intro("dustpan");
   const scanning = spinner();
   scanning.start(`scanning ${root}`);
   const candidates = await scan(root);

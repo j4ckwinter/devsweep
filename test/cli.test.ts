@@ -7,7 +7,7 @@ import { createFixture, type Fixture } from "./fixture.ts";
 
 const CLI = fileURLToPath(new URL("../src/cli.ts", import.meta.url));
 
-describe("devsweep without a terminal", () => {
+describe("dustpan without a terminal", () => {
   let fixture: Fixture;
   let output: string;
 
@@ -29,18 +29,18 @@ describe("devsweep without a terminal", () => {
   });
 });
 
-describe("devsweep given a folder that isn't there", () => {
+describe("dustpan given a folder that isn't there", () => {
   it("says so in one line and exits with an error", () => {
-    const missing = "/nonexistent/devsweep-check";
+    const missing = "/nonexistent/dustpan-check";
     const result = spawnSync(process.execPath, [CLI, missing], { encoding: "utf8" });
     assert.equal(result.status, 1);
-    assert.equal(result.stderr.trim(), `devsweep: no folder at ${missing}`);
+    assert.equal(result.stderr.trim(), `dustpan: no folder at ${missing}`);
     assert.equal(result.stdout, "");
   });
 
   it("says so for a file too", () => {
     const result = spawnSync(process.execPath, [CLI, CLI], { encoding: "utf8" });
     assert.equal(result.status, 1);
-    assert.equal(result.stderr.trim(), `devsweep: no folder at ${CLI}`);
+    assert.equal(result.stderr.trim(), `dustpan: no folder at ${CLI}`);
   });
 });

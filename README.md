@@ -1,19 +1,19 @@
-# devsweep
+# dustpan
 
 **a terminal tool that finds the disk space coding agents leave behind in your projects, and deletes only what you pick.**
 
 coding agents are messy guests. every session leaves something behind: a fresh `node_modules`, a git worktree it never cleaned up, a folder of playwright traces. a few weeks of that and the disk is full.
 
-point devsweep at the folder that holds your projects. it lists every leftover with its size and age, biggest first. you tick what to clear, confirm, and it tells you how much space came back. it won't offer anything that holds work you'd lose, like a worktree with uncommitted changes.
+point dustpan at the folder that holds your projects. it lists every leftover with its size and age, biggest first. you tick what to clear, confirm, and it tells you how much space came back. it won't offer anything that holds work you'd lose, like a worktree with uncommitted changes.
 
-![devsweep scanning a folder of projects, ticking an old node_modules folder, two worktrees and some playwright traces, then reclaiming 372 MB](docs/demo.gif)
+![dustpan scanning a folder of projects, ticking an old node_modules folder, two worktrees and some playwright traces, then reclaiming 372 MB](docs/demo.gif)
 
 ## run it
 
 you need Node 24 or newer and git. give it the folder your projects live in. `~/code` is just an example, so swap in your own:
 
 ```sh
-npx --allow-git=root github:j4ckwinter/devsweep ~/code
+npx --allow-git=root github:j4ckwinter/dustpan ~/code
 ```
 
 leave the folder off and it scans the one you're in. if the path doesn't exist, it says so and stops.
@@ -46,7 +46,7 @@ anything it won't clear is still listed, greyed out, with the reason.
 - **a folder it can't read.**
 - **anything holding a worktree it's keeping**, like a worktree with another one inside its `.claude` folder.
 
-worktrees get the most care. devsweep removes them with `git worktree remove`, never by deleting the folder, and it keeps a worktree that is:
+worktrees get the most care. dustpan removes them with `git worktree remove`, never by deleting the folder, and it keeps a worktree that is:
 
 - **locked** with `git worktree lock`, even if its folder is gone.
 - **holding uncommitted changes**, including untracked files.
@@ -57,7 +57,7 @@ removing a worktree keeps its branch, so committed work is never lost.
 
 a worktree whose folder is already gone is cleared with `git worktree prune`, which tidies every gone worktree in that repo at once.
 
-devsweep finds worktrees through the repos under the folder you scan, so a worktree whose repo lives somewhere else won't show up.
+dustpan finds worktrees through the repos under the folder you scan, so a worktree whose repo lives somewhere else won't show up.
 
 ## work on it
 

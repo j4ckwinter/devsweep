@@ -1,10 +1,10 @@
 {
-  "name": "devsweep",
+  "name": "dustpan",
   "version": "0.1.0",
   "description": "find and clear the junk coding agents leave behind",
   "type": "module",
   "bin": {
-    "devsweep": "dist/cli.js"
+    "dustpan": "dist/cli.js"
   },
   "engines": {
     "node": ">=24"
@@ -31,11 +31,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/j4ckwinter/devsweep.git"
+    "url": "git+https://github.com/j4ckwinter/dustpan.git"
   },
-  "homepage": "https://github.com/j4ckwinter/devsweep#readme",
+  "homepage": "https://github.com/j4ckwinter/dustpan#readme",
   "bugs": {
-    "url": "https://github.com/j4ckwinter/devsweep/issues"
+    "url": "https://github.com/j4ckwinter/dustpan/issues"
   },
   "author": "Jack Winter",
   "keywords": [

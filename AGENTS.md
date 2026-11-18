@@ -1,10 +1,10 @@
-# Working on devsweep
+# Working on dustpan
 
-devsweep is a terminal tool that finds and clears what coding agents leave behind. The [README](README.md) describes what it looks for and how worktrees are protected. Read it before changing what devsweep finds or removes.
+dustpan is a terminal tool that finds and clears what coding agents leave behind. The [README](README.md) describes what it looks for and how worktrees are protected. Read it before changing what dustpan finds or removes.
 
 ## Build and check
 
-Run commands from the repository root. Node 24 or newer runs the TypeScript sources directly. `npm run build` compiles `src` to `dist` for installs, because Node will not run TypeScript from inside `node_modules`; `prepare` runs it, so `npx --allow-git=root github:j4ckwinter/devsweep` and `npm pack` build first. npm 12 refuses git installs without that flag.
+Run commands from the repository root. Node 24 or newer runs the TypeScript sources directly. `npm run build` compiles `src` to `dist`, which is what the npm package ships, because Node will not run TypeScript from inside `node_modules`. `prepare` runs it, so `npm pack` and `npm publish` build first, and `prepublishOnly` runs `npm run check`.
 
 ```sh
 npm run check   # tsc, then node --test
@@ -12,7 +12,7 @@ npm start -- <folder>
 npm run build   # src to dist, which the published bin runs
 ```
 
-After a change to packaging, check the installed path: `npm pack`, then run the tarball with `npx --package=<tarball> devsweep <folder>`.
+After a change to packaging, check the installed path: `npm pack`, then run the tarball with `npx --package=<tarball> dustpan <folder>`.
 
 `docs/demo.gif` is a plain image at the top of the README, and it is what people see first on GitHub. After a change to what the interactive screens show, say whether it is out of date. Redo it only when Jack asks.
 
@@ -34,9 +34,9 @@ Each decision has one owner. Put new code with the owner of the decision it make
 
 ## Rules that matter here
 
-- devsweep deletes things. A change that widens what it finds or removes needs a test against the fixture tree in `test/fixture.ts`, and a test that a kept item stays.
+- dustpan deletes things. A change that widens what it finds or removes needs a test against the fixture tree in `test/fixture.ts`, and a test that a kept item stays.
 - Remove worktrees through git, never by deleting their folder.
-- Nothing is selected by default, and the confirmation defaults to no. Without a terminal, devsweep only lists.
+- Nothing is selected by default, and the confirmation defaults to no. Without a terminal, dustpan only lists.
 - Keep the core free of prompts: only `src/cli.ts` imports `@clack/prompts`. `src/format.ts` and `src/plan.ts` take values and return values.
 - Tests use real temporary folders and real git with global config switched off. No network, clock or sleeping.
 - Write code that needs no comments. Name things for what they mean to the user.
@@ -48,4 +48,4 @@ Each decision has one owner. Put new code with the owner of the decision it make
 
 ## Commits
 
-Use Conventional Commits, one logical change each, with no AI attribution lines. Committing and pushing to `main` is expected. Publishing to npm, making the repository public, or posting about it needs Jack's request.
+Use Conventional Commits, one logical change each, with no AI attribution lines. Committing and pushing to `main` is expected. Publishing a new version to npm, or posting about it, needs Jack's request. Jack runs `npm publish` himself.

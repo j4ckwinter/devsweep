@@ -29,7 +29,7 @@ export interface Fixture {
 }
 
 export async function createFixture(): Promise<Fixture> {
-  const root = await realpath(await mkdtemp(join(tmpdir(), "devsweep-")));
+  const root = await realpath(await mkdtemp(join(tmpdir(), "dustpan-")));
   const path = (...parts: string[]) => join(root, ...parts);
 
   await put(path("shop", "package.json"));
