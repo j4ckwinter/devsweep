@@ -1,10 +1,29 @@
 # devsweep
 
-coding agents are messy guests. every session leaves something behind: a fresh `node_modules`, a worktree it never cleaned up, a folder of playwright traces. a few weeks of that and the disk is full.
+**a terminal tool that finds the disk space coding agents leave behind in your projects, and deletes only what you pick.**
 
-devsweep finds that junk under a folder, shows how big and how old each piece is, and clears only what you tick.
+coding agents are messy guests. every session leaves something behind: a fresh `node_modules`, a git worktree it never cleaned up, a folder of playwright traces. a few weeks of that and the disk is full.
 
-![devsweep scanning a folder, ticking two old node_modules folders, two worktrees and some playwright traces, then reclaiming 372 MB](docs/demo.gif)
+point devsweep at the folder that holds your projects. it lists every leftover with its size and age, biggest first. you tick what to clear, confirm, and it tells you how much space came back. it won't offer anything that holds work you'd lose, like a worktree with uncommitted changes.
+
+![devsweep scanning a folder of projects, ticking an old node_modules folder, two worktrees and some playwright traces, then reclaiming 372 MB](docs/demo.gif)
+
+## run it
+
+you need Node 24 or newer and git. run it on the folder that holds your projects:
+
+```sh
+npx --allow-git=root github:j4ckwinter/devsweep ~/code
+```
+
+npm 12 won't install from GitHub without `--allow-git=root`. older npm ignores it.
+
+it scans, shows totals by kind, then gives you a checklist sorted by size. tick things with space, press enter, then press y. nothing is ticked to start with, and the "are you sure" defaults to no.
+
+- `--yes` skips the "are you sure" after you've picked.
+- with no terminal, say piped into a file, it only lists what it found and deletes nothing.
+
+i've only run it on macOS. it should work on Linux. Windows is untested.
 
 ## what it looks for
 
@@ -16,23 +35,6 @@ devsweep finds that junk under a folder, shows how big and how old each piece is
 | build output | `dist`, `.next`, `.turbo`, `.svelte-kit` and `.parcel-cache`, next to a `package.json` |
 
 test and build output only count beside a `package.json`, so a `dist` folder in your notes is left alone.
-
-## run it
-
-you need Node 24 or newer and git. then point it at the folder that holds your projects:
-
-```sh
-npx --allow-git=root github:j4ckwinter/devsweep ~/code
-```
-
-npm 12 won't install from GitHub without `--allow-git=root`. older npm ignores it.
-
-it scans, shows totals by kind, then gives you a checklist sorted by size. tick things with space, press enter, and say yes. nothing is ticked to start with, and the "are you sure" defaults to no.
-
-- `--yes` skips the "are you sure" after you've picked.
-- with no terminal, say piped into a file, it only lists what it found and deletes nothing.
-
-i've only run it on macOS. it should work on Linux. Windows is untested.
 
 ## what it won't offer
 
@@ -53,7 +55,7 @@ removing a worktree keeps its branch, so committed work is never lost.
 
 a worktree whose folder is already gone is cleared with `git worktree prune`, which tidies every gone worktree in that repo at once.
 
-devsweep finds worktrees through the repos under the folder you scan. a worktree whose repo lives somewhere else won't show up, so point it at the folder that holds your repos.
+devsweep finds worktrees through the repos under the folder you scan, so a worktree whose repo lives somewhere else won't show up.
 
 ## work on it
 
