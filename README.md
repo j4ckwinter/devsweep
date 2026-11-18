@@ -6,8 +6,6 @@ devsweep finds that junk under a folder, shows how big and how old each piece is
 
 ![devsweep scanning a folder, ticking two old node_modules folders, two worktrees and some playwright traces, then reclaiming 372 MB](docs/demo.gif)
 
-the same demo plays sharper in [docs/demo.html](docs/demo.html), once it's downloaded and opened in a browser.
-
 ## what it looks for
 
 | kind | what counts |
@@ -21,17 +19,18 @@ test and build output only count beside a `package.json`, so a `dist` folder in 
 
 ## run it
 
-use Node 24 or newer.
+you need Node 24 or newer and git. then point it at the folder that holds your projects:
 
 ```sh
-npm ci
-node src/cli.ts ~/dev
+npx github:j4ckwinter/devsweep ~/code
 ```
 
 it scans, shows totals by kind, then gives you a checklist sorted by size. tick things with space, press enter, and say yes. nothing is ticked to start with, and the "are you sure" defaults to no.
 
 - `--yes` skips the "are you sure" after you've picked.
 - with no terminal, say piped into a file, it only lists what it found and deletes nothing.
+
+i've only run it on macOS. it should work on Linux. Windows is untested.
 
 ## what it won't offer
 
@@ -54,13 +53,19 @@ a worktree whose folder is already gone is cleared with `git worktree prune`, wh
 
 devsweep finds worktrees through the repos under the folder you scan. a worktree whose repo lives somewhere else won't show up, so point it at the folder that holds your repos.
 
-## check it
+## work on it
 
 ```sh
-npm run check   # typecheck and tests
-npm run demo    # re-record docs/demo.cast, docs/demo.html and docs/demo.gif
+npm ci
+npm start -- ~/code   # run it from the source
+npm run check         # typecheck and tests
+npm run demo          # re-record docs/demo.cast and redraw docs/demo.gif
 ```
 
 the tests build a throwaway tree with real git repos and worktrees, then scan and sweep it.
 
 the demo is recorded through macOS's `script` command, so `npm run demo` is mac only. the gif is drawn by playing that recording in Playwright's headless Chromium, so it needs `npx playwright-core install chromium-headless-shell` once if that isn't on the machine yet.
+
+## licence
+
+[MIT](LICENSE).

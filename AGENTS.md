@@ -4,13 +4,16 @@ devsweep is a terminal tool that finds and clears what coding agents leave behin
 
 ## Build and check
 
-Run commands from the repository root. Node 24 or newer runs the TypeScript sources directly; there is no build step.
+Run commands from the repository root. Node 24 or newer runs the TypeScript sources directly. `npm run build` compiles `src` to `dist` for installs, because Node will not run TypeScript from inside `node_modules`; `prepare` runs it, so `npx github:j4ckwinter/devsweep` and `npm pack` build first.
 
 ```sh
 npm run check   # tsc, then node --test
 npm start -- <folder>
-npm run demo    # re-record docs/demo.cast, docs/demo.html and docs/demo.gif (macOS only)
+npm run build   # src to dist, which the published bin runs
+npm run demo    # re-record docs/demo.cast and redraw docs/demo.gif (macOS only)
 ```
+
+After a change to packaging, check the installed path: `npm pack`, then run the tarball with `npx --package=<tarball> devsweep <folder>`.
 
 Re-record the demo after a change to what the interactive screens show, and look at the result. The GIF at the top of the README is what people see first on GitHub.
 
@@ -48,4 +51,4 @@ Each decision has one owner. Put new code with the owner of the decision it make
 
 ## Commits
 
-Use Conventional Commits, one logical change each, with no AI attribution lines. Committing and pushing to `main` is expected. Publishing to npm or making the repository public needs Jack's request.
+Use Conventional Commits, one logical change each, with no AI attribution lines. Committing and pushing to `main` is expected. Publishing to npm, making the repository public, or posting about it needs Jack's request.

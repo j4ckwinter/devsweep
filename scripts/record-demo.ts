@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { mkdtemp, readFile, realpath, rm, utimes, writeFile } from "node:fs/promises";
+import { mkdtemp, realpath, rm, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,8 +16,6 @@ const ENTER = "\r";
 const here = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 const CLI = here("../src/cli.ts");
 const CAST = here("../docs/demo.cast");
-const PLAYER = here("../docs/demo.html");
-const PLAYER_ASSETS = here("../node_modules/asciinema-player/dist/bundle/");
 
 const KEYS: Array<[seconds: number, key: string]> = [
   [4.5, DOWN],
@@ -100,31 +98,6 @@ function asciicast(events: Array<[number, "o", string]>): string {
   return [header, ...events].map((line) => JSON.stringify(line)).join("\n") + "\n";
 }
 
-async function playerPage(cast: string): Promise<string> {
-  const [script, style] = await Promise.all([
-    readFile(join(PLAYER_ASSETS, "asciinema-player.min.js"), "utf8"),
-    readFile(join(PLAYER_ASSETS, "asciinema-player.css"), "utf8"),
-  ]);
-  const castUrl = `data:application/json;base64,${Buffer.from(cast).toString("base64")}`;
-  return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>devsweep demo</title>
-<style>${style}
-body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #121314; }
-#player { width: min(960px, 100vw - 32px); }</style>
-</head>
-<body>
-<div id="player"></div>
-<script>${script.replaceAll("</script", "<\\/script")}</script>
-<script>window.demoPlayer = AsciinemaPlayer.create(${JSON.stringify(castUrl)}, document.getElementById("player"), { autoPlay: true, loop: false, fit: "width", idleTimeLimit: 2 });</script>
-</body>
-</html>
-`;
-}
-
 const scratch = await realpath(await mkdtemp(join(tmpdir(), "devsweep-demo-")));
 const code = join(scratch, "code");
 try {
@@ -132,9 +105,8 @@ try {
   const events = await record(code);
   const cast = asciicast(events);
   await writeFile(CAST, cast);
-  await writeFile(PLAYER, await playerPage(cast));
   const duration = events.at(-1)?.[0] ?? 0;
-  console.log(`recorded ${duration.toFixed(1)}s to ${CAST} and ${PLAYER}`);
+  console.log(`recorded ${duration.toFixed(1)}s to ${CAST}`);
 } finally {
   await rm(scratch, { recursive: true, force: true });
 }
